@@ -67,7 +67,7 @@ async def generate_voice_ogg_bytes(
             "voice_config": {"prebuilt_voice_config": {"voice_name": voice_name}}
         }
         thinking_config = types.ThinkingConfig(
-            thinking_level=types.ThinkingLevel.LOW
+            thinking_level=types.ThinkingLevel.MEDIUM
         )
 
         async def _collect_live_audio() -> bytes:

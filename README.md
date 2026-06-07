@@ -100,8 +100,8 @@ python -m bot.main
 ### Voice generation
 
 - Every 10 minutes the scheduler checks each approved group.
-- If a group had at least 15 messages in the last 30 minutes, the bot may speak.
-- Default speaking probability is 20%.
+- If a group had at least 8 messages in the last 30 minutes, the bot may speak.
+- Default speaking probability is 35%.
 - Voice output is generated from:
   - persona
   - recent 50 messages
