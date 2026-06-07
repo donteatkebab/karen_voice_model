@@ -90,6 +90,8 @@ python -m bot.main
 - The owner sends `/approve` inside a group.
 - The group is added to the `approved_groups` table.
 - Only approved groups are processed.
+- The owner can clear stored group data with `/clear_db`.
+- The owner can revoke group approval with `/unapprove`.
 
 ### Message storage
 

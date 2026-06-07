@@ -84,6 +84,13 @@ class Database:
                 (group_id, group_title, approved_at),
             )
 
+    def unapprove_group(self, group_id: int) -> None:
+        with self.cursor() as cur:
+            cur.execute(
+                "DELETE FROM approved_groups WHERE group_id = ?",
+                (group_id,),
+            )
+
     def is_group_approved(self, group_id: int) -> bool:
         with self.cursor() as cur:
             row = cur.execute(
@@ -208,4 +215,15 @@ class Database:
                     last_voice_at = excluded.last_voice_at
                 """,
                 (group_id, last_voice_at),
+            )
+
+    def clear_group_data(self, group_id: int) -> None:
+        with self.cursor() as cur:
+            cur.execute(
+                "DELETE FROM messages WHERE group_id = ?",
+                (group_id,),
+            )
+            cur.execute(
+                "DELETE FROM bot_activity WHERE group_id = ?",
+                (group_id,),
             )

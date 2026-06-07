@@ -77,6 +77,23 @@ async def approve_group(message: Message, db: Database, config: Config) -> None:
     await message.answer("Group approved.")
 
 
+@router.message(Command("unapprove"))
+async def unapprove_group(message: Message, db: Database, config: Config) -> None:
+    if not message.from_user or message.from_user.id != config.owner_id:
+        return
+
+    if message.chat.type not in {"group", "supergroup"}:
+        await message.answer("این دستور فقط در گروه یا سوپرگروه کار می‌کند.")
+        return
+
+    if not db.is_group_approved(message.chat.id):
+        await message.answer("این گروه از قبل تأیید نشده است.")
+        return
+
+    db.unapprove_group(message.chat.id)
+    await message.answer("گروه دیگر تأییدشده نیست و در بررسی‌های بعدی پردازش نخواهد شد.")
+
+
 @router.message(Command("test_voice"))
 async def test_voice(message: Message, db: Database, config: Config) -> None:
     if not message.from_user or message.from_user.id != config.owner_id:
@@ -176,3 +193,22 @@ async def owner_karan_trigger(message: Message, db: Database, config: Config) ->
     )
     voice = BufferedInputFile(audio_bytes, filename="karen_trigger.ogg")
     await message.answer_voice(voice=voice, reply_to_message_id=message.message_id)
+
+
+@router.message(Command("clear_db"))
+async def clear_group_database(message: Message, db: Database, config: Config) -> None:
+    if not message.from_user or message.from_user.id != config.owner_id:
+        return
+
+    if message.chat.type not in {"group", "supergroup"}:
+        await message.answer("این دستور فقط در گروه یا سوپرگروه کار می‌کند.")
+        return
+
+    if not db.is_group_approved(message.chat.id):
+        await message.answer("این گروه مورد تأیید نیست.")
+        return
+
+    db.clear_group_data(message.chat.id)
+    await message.answer(
+        "دیتابیس ذخیره‌شده برای این گروه پاک شد. پیام‌ها و وضعیت آخرین ویس حذف شدند."
+    )
