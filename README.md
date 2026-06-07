@@ -55,10 +55,10 @@ Required:
 Optional:
 
 - `DATABASE_PATH` default: `data/bot.sqlite3`
-- `VOICE_COOLDOWN_MINUTES` default: `45`
+- `VOICE_COOLDOWN_MINUTES` default: `1`
 - `TRIGGER_PROBABILITY` default: `0.2`
 - `MIN_MESSAGES_FOR_ACTIVITY` default: `15`
-- `TRIGGER_INTERVAL_MINUTES` default: `10`
+- `TRIGGER_INTERVAL_MINUTES` default: `5`
 - `RECENT_MEMORY_LIMIT` default: `50`
 - `HISTORY_LIMIT_PER_GROUP` default: `1000`
 - `ACTIVITY_WINDOW_MINUTES` default: `30`
@@ -101,9 +101,9 @@ python -m bot.main
 
 ### Voice generation
 
-- Every 10 minutes the scheduler checks each approved group.
+- Every 5 minutes the scheduler checks each approved group.
 - If a group had at least 8 messages in the last 30 minutes, the bot may speak.
-- Default speaking probability is 35%.
+- Default speaking probability is 50%.
 - Voice output is generated from:
   - persona
   - recent 50 messages
@@ -117,7 +117,7 @@ python -m bot.main
 ### Cooldown
 
 - A group can only receive a new voice message after the cooldown expires.
-- Default cooldown is 45 minutes.
+- Default cooldown is 1 minute.
 
 ## Docker
 

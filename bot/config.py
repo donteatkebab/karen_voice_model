@@ -25,10 +25,10 @@ class Config:
     gemini_api_key: str
     owner_id: int
     database_path: str
-    voice_cooldown_minutes: int = 45
-    trigger_probability: float = 0.35
+    voice_cooldown_minutes: int = 1
+    trigger_probability: float = 0.5
     min_messages_for_activity: int = 8
-    trigger_interval_minutes: int = 10
+    trigger_interval_minutes: int = 5
     recent_memory_limit: int = 50
     history_limit_per_group: int = 1000
     activity_window_minutes: int = 30
