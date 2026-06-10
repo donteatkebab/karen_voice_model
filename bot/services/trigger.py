@@ -48,12 +48,12 @@ async def maybe_send_voice_for_group(
 
     mode_reply = random.random() < 0.7
     selected_message: StoredMessage | None = None
-    instruction = "Join the conversation naturally."
+    instruction = config.instruction_join
     reply_message_id: int | None = None
 
     if mode_reply:
         selected_message = random.choice(recent_messages)
-        instruction = "Reply naturally to the selected message."
+        instruction = config.instruction_reply
         reply_message_id = selected_message.telegram_message_id
 
     try:

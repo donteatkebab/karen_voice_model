@@ -33,8 +33,18 @@ class Config:
     history_limit_per_group: int = 1000
     activity_window_minutes: int = 30
     gemini_model: str = "gemini-3.1-flash-live-preview"
-    gemini_voice_name: str = "Kore"
+    gemini_voice_name: str = "Achernar"
     gemini_api_version: str = ""
+    # Instruction templates (editable defaults)
+    instruction_join: str = "بر اساس محتوای چت یه چیز بگو"
+    instruction_reply: str = "به پیام مورد نظر پاسخ بده."
+    test_voice_instruction: str = "همینجوری یه چیز رندوم بگو"
+    karen_instruction: str = (
+        "بر اساس سوال کاربر به سوال پاسخ بده اگه نیاز بود از حافظه چت هم استفاده کن."
+        "اگر owner روی پیام کسی reply زده، همان پیام را مبنا قرار بده. "
+        "اگر owner روی پیام خودش reply زده، ادامه همان رشته گفتگو را طبیعی پاسخ بده. "
+        "اگر owner بعد از /karen متن هم نوشته، همان درخواست را هم اجرا کن. "
+    )
 
 
 def _required(name: str) -> str:
@@ -60,8 +70,8 @@ def load_config() -> Config:
         history_limit_per_group=int(os.getenv("HISTORY_LIMIT_PER_GROUP", "1000")),
         activity_window_minutes=int(os.getenv("ACTIVITY_WINDOW_MINUTES", "30")),
         gemini_model=os.getenv(
-            "GEMINI_AUDIO_MODEL", "gemini-3.1-flash-live-preview"
+            "GEMINI_AUDIO_MODEL", "gemini-2.5-flash-native-audio-preview-12-2025"
         ),
-        gemini_voice_name=os.getenv("GEMINI_VOICE_NAME", "Kore"),
+        gemini_voice_name=os.getenv("GEMINI_VOICE_NAME", "Achernar"),
         gemini_api_version=os.getenv("GEMINI_API_VERSION", ""),
     )

@@ -111,9 +111,7 @@ async def test_voice(message: Message, db: Database, config: Config) -> None:
     audio_bytes = await generate_group_voice(
         config=config,
         recent_messages=recent_messages,
-        instruction=(
-            "همینجوری یه چیز رندوم بگو طولانی باشه  "
-        ),
+        instruction=config.test_voice_instruction,
     )
     voice = BufferedInputFile(audio_bytes, filename="test_voice.ogg")
     await message.answer_voice(voice=voice, reply_to_message_id=message.message_id)
@@ -175,13 +173,7 @@ async def owner_karan_trigger(message: Message, db: Database, config: Config) ->
 
     trigger_context = _describe_owner_reply(owner_message=message, reply_to=reply_to)
     owner_request = _extract_owner_request(message)
-    instruction = (
-        "پاسخ طبیعی و کوتاه بر اساس حافظه همین چت بده. "
-        "اگر owner روی پیام کسی reply زده، همان پیام را مبنا قرار بده. "
-        "اگر owner روی پیام خودش reply زده، ادامه همان رشته گفتگو را طبیعی پاسخ بده. "
-        "اگر owner بعد از /karen متن هم نوشته، همان درخواست را هم اجرا کن. "
-        "اگر reply وجود ندارد، بر اساس جریان اخیر چت جواب بده."
-    )
+    instruction = config.karen_instruction
 
     audio_bytes = await generate_group_voice(
         config=config,
